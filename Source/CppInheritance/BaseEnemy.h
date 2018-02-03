@@ -14,7 +14,6 @@
 * General Public License for more details.
 *********************************************************************/
 
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -32,7 +31,7 @@ class CPPINHERITANCE_API ABaseEnemy : public AActor
 public:
 	// Sets default values for this actor's properties
 	ABaseEnemy();
-
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -40,12 +39,17 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	FString getType();
+	void setType(FString type);
 
 private:
 	UPROPERTY()
 		TWeakObjectPtr<UAnimSequence> IdleAnimation;
 	UPROPERTY()
 		TWeakObjectPtr<UParticleSystem> ExplosionParticleSystem;
+
+	TWeakObjectPtr<AActor> ReferenceAchievementMan;
+	FString Type;
 
 protected:
 	UFUNCTION()

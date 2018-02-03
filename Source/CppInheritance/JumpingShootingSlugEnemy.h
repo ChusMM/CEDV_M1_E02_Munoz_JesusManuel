@@ -29,6 +29,7 @@ class CPPINHERITANCE_API AJumpingShootingSlugEnemy : public ABaseEnemy
 public:
 	// Sets default values for this actor's properties
 	AJumpingShootingSlugEnemy();
+	static const FString TYPE_KEY;
 
 private:
 	void RunBehaviour() override;

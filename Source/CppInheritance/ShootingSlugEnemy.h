@@ -28,6 +28,7 @@ class CPPINHERITANCE_API AShootingSlugEnemy : public ABaseEnemy
 public:
 	// Sets default values for this actor's properties
 	AShootingSlugEnemy();
+	static const FString TYPE_KEY;
 
 private:
 	void RunBehaviour() override;

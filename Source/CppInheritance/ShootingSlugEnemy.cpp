@@ -1,10 +1,14 @@
 #include "ShootingSlugEnemy.h"
 #include "EngineMinimal.h"
 
+const FString AShootingSlugEnemy::TYPE_KEY = "shooting";
+
 // Sets default values
 // Invoke the parent constructor in the initialization list
 AShootingSlugEnemy::AShootingSlugEnemy() : Super()
 {
+	// Set enemy type in super class
+	setType(TYPE_KEY);
 }
 
 void AShootingSlugEnemy::RunBehaviour()

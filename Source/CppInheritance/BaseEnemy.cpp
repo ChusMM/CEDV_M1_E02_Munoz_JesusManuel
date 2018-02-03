@@ -3,12 +3,15 @@
 // This file includes most of UE4 libraries, 
 // so you don't have to manually import header files individually ...
 #include "EngineMinimal.h"
+#include "EngineUtils.h"
 
 // ... but PhysicsAsset library is not included by default, so we include it
 #include "PhysicsEngine/PhysicsAsset.h"
+#include "AchievementManager.h"
 
 // Sets default values
-ABaseEnemy::ABaseEnemy()
+ABaseEnemy::ABaseEnemy() :
+	ReferenceAchievementMan(0)
 {
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -64,6 +67,17 @@ void ABaseEnemy::BeginPlay()
 	
 	SkeletalMesh->PlayAnimation(IdleAnimation.Get(), true);
 	PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+
+	FString AchievementMan = FString(TEXT("AchievementManager_1"));
+	for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		if (AchievementMan.Equals(ActorItr->GetName()))
+		{
+			// Conversion to smart pointer 
+			ReferenceAchievementMan = *ActorItr;
+			break;
+		}
+	}
 }
 
 // Called every frame
@@ -80,12 +94,33 @@ void ABaseEnemy::Tick(float DeltaTime)
 	RunBehaviour();
 }
 
+FString ABaseEnemy::getType()
+{
+	return Type;
+}
+
+void ABaseEnemy::setType(FString Type)
+{
+	this->Type = Type;
+}
+
 void ABaseEnemy::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
 	if (OtherActor) {
-		if (OtherActor->IsA(ProjectileClass)) {
+		if (OtherActor->IsA(ProjectileClass)) 
+		{
 			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticleSystem.Get(), Hit.Location);
 			Destroy();
+
+			// Check validity and cast
+			if (ReferenceAchievementMan.IsValid() &&
+				ReferenceAchievementMan.Get()->IsA(AAchievementManager::StaticClass()))
+			{
+				AAchievementManager* AchievementManagerPtr = 
+					Cast<AAchievementManager>(ReferenceAchievementMan.Get());
+
+				AchievementManagerPtr->incrementKillsByType(this->Type);
+			}
 		}
 	}
 }

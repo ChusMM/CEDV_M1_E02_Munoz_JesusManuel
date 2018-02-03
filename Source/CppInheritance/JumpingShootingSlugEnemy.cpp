@@ -1,6 +1,8 @@
 #include "JumpingShootingSlugEnemy.h"
 #include "EngineMinimal.h"
 
+const FString AJumpingShootingSlugEnemy::TYPE_KEY = "jumping";
+
 // Sets default values
 // Invoke the parent constructor in the initialization list
 AJumpingShootingSlugEnemy::AJumpingShootingSlugEnemy() : Super()
@@ -9,6 +11,9 @@ AJumpingShootingSlugEnemy::AJumpingShootingSlugEnemy() : Super()
 		CreateAndSetMaterialInstanceDynamic(0);
 	Material->SetVectorParameterValue(FName(TEXT("Color")), 
 		FLinearColor(0.0f, 1.0f, 0.0f));
+	
+	// Set enemy type in super class
+	setType(TYPE_KEY);
 }
 
 void AJumpingShootingSlugEnemy::RunBehaviour()

@@ -1,12 +1,17 @@
 #include "SuperShootingSlugEnemy.h"
 #include "EngineMinimal.h"
 
+const FString ASuperShootingSlugEnemy::TYPE_KEY = "superShooting";
+
 // Sets default values
 // Invoke the parent constructor in the initialization list
 ASuperShootingSlugEnemy::ASuperShootingSlugEnemy() : Super()
 {
 	TWeakObjectPtr<UMaterialInstanceDynamic> Material = SkeletalMesh->CreateAndSetMaterialInstanceDynamic(0);
 	Material->SetVectorParameterValue(FName(TEXT("Color")), FLinearColor(1.0f, 0.0f, 0.0f));
+	
+	// Set enemy type in super class
+	setType(TYPE_KEY);
 }
 
 void ASuperShootingSlugEnemy::RunBehaviour()
