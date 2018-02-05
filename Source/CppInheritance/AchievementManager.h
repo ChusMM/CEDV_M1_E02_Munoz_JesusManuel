@@ -32,7 +32,7 @@ public:
 	
 	bool isFullHealth() const;
 
-	UFUNCTION(BlueprintCallable, Category = "AchievementManager")
+	UFUNCTION(BlueprintCallable, Category = "Health")
 	void setFullHealth(bool value);
 	
 	bool hasMissedAnyShot() const;
