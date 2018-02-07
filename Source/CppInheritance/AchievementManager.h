@@ -22,7 +22,8 @@ protected:
 private:
 	TMap<FString, int32> CounterKilledByType;
 	bool FullHealth;
-	bool MissingShot;
+	int KilledEnemiesCount;
+	int ShotsFired;
 
 	TWeakObjectPtr<AActor> AchievementControllerRef;
 
@@ -34,10 +35,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Health")
 	void setFullHealth(bool value);
-	
-	bool hasMissedAnyShot() const;
-	void setMissingShot(bool value);
 
 	int getKilledByType(FString type) const;
 	void incrementKillsByType(FString type);
+	
+	UFUNCTION(BlueprintCallable, Category = "Shots")
+	void incrementShotsFired();
 };

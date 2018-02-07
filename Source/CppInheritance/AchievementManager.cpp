@@ -12,7 +12,8 @@
 // Sets default values
 AAchievementManager::AAchievementManager() :
 	FullHealth(true),
-	MissingShot(false)
+	KilledEnemiesCount(0),
+	ShotsFired(0)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -65,16 +66,6 @@ void AAchievementManager::setFullHealth(bool value)
 	}
 }
 
-bool AAchievementManager::hasMissedAnyShot() const
-{
-	return this->MissingShot;
-}
-
-void AAchievementManager::setMissingShot(bool value)
-{
-	this->MissingShot = value;
-}
-
 int AAchievementManager::getKilledByType(FString type) const
 {
 	if (CounterKilledByType.Contains(type)) 
@@ -93,6 +84,7 @@ void AAchievementManager::incrementKillsByType(FString type)
 {
 	if (CounterKilledByType.Contains(type))
 	{
+		this->KilledEnemiesCount ++;
 		// Despite its name returns value copy instead of ref
 		int32 count = CounterKilledByType.FindRef(type);
 		CounterKilledByType.Emplace(type, ++count);
@@ -105,11 +97,18 @@ void AAchievementManager::incrementKillsByType(FString type)
 				Cast<AAchievementController>(AchievementControllerRef.Get());
 
 			AchievementControllerPtr->setKilledCount(CounterKilledByType);
+
+			AchievementControllerPtr->setMissingShot(this->ShotsFired > KilledEnemiesCount);
 		}
 	}
 	else
 	{
 		//throw new EnemyTypeNotFoundException();
 	}
+}
+
+void AAchievementManager::incrementShotsFired()
+{
+	this->ShotsFired++;
 }
 

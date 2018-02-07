@@ -32,6 +32,9 @@ public:
 	// Sets default values for this actor's properties
 	AEnemyManager();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EnemiesLimit")
+	int32 EnemiesLimit;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

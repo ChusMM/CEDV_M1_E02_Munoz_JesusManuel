@@ -39,6 +39,17 @@ void AAchievementController::BeginPlay()
 				->GetWidgetFromName("TextFullHealthOnFinish");
 		}
 	}
+
+	if (MissedShotTextWidget) {
+		pMissedShotTextWidget = CreateWidget<UUserWidget>
+			(GetGameInstance(), MissedShotTextWidget);
+
+		if (pMissedShotTextWidget.IsValid()) {
+			pMissedShotTextWidget->AddToViewport();
+			pMissedShotText = (UTextBlock*)pMissedShotTextWidget
+				->GetWidgetFromName("TextNoMissingShot");
+		}
+	}
 	
 }
 
@@ -74,6 +85,16 @@ void AAchievementController::setFullHealth(bool value)
 
 		FString TextToShow = value ? "No hit by any enemy" : "Hit by enemy at least once";
 		pFullHealthText->SetText(FText::FromString(TextToShow));
+	}
+}
+
+void AAchievementController::setMissingShot(bool value)
+{
+	if (pMissedShotText.IsValid()) {
+		//pFullHealthText->SetVisibility(ESlateVisibility::Visible);
+
+		FString TextToShow = value ? "Missing shot/s" : "No missing shot";
+		pMissedShotText->SetText(FText::FromString(TextToShow));
 	}
 }
 

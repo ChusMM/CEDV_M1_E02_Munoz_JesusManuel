@@ -28,6 +28,11 @@ public:
 	TWeakObjectPtr<class UUserWidget> pFullHealthTextWidget;
 	TWeakObjectPtr<class UTextBlock> pFullHealthText;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
+		TSubclassOf<class UUserWidget> MissedShotTextWidget;
+	TWeakObjectPtr<class UUserWidget> pMissedShotTextWidget;
+	TWeakObjectPtr<class UTextBlock> pMissedShotText;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -40,4 +45,5 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	void setKilledCount(TMap<FString, int32> CounterKilledByType);
 	void setFullHealth(bool value);
+	void setMissingShot(bool value);
 };
