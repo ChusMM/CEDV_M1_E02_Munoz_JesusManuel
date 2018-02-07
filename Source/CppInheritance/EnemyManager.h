@@ -43,7 +43,7 @@ private:
 	// Temporal reference to spawn new enemies
 	float AccumulatedDeltaTime;
 	float EnemySpawnTimeSeconds;
-	int MaxNumberOfEnemies;
+	int EnemiesSpawned;
 
 	// Keeps a list of enemy types to spawn
 	TArray<TSubclassOf<ABaseEnemy>> EnemyClasses;

@@ -10,7 +10,7 @@
 AEnemyManager::AEnemyManager() : 
 	AccumulatedDeltaTime(0.0f), 
 	EnemySpawnTimeSeconds(3.5f), 
-	MaxNumberOfEnemies(5), 
+	EnemiesSpawned(0), 
 	ReferencePlane(0) 
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -46,7 +46,7 @@ void AEnemyManager::Tick(float DeltaTime)
 	AccumulatedDeltaTime += DeltaTime;
 	if ((AccumulatedDeltaTime >= EnemySpawnTimeSeconds)
 		&&
-		(GetNumberOfEnemies() < MaxNumberOfEnemies))
+		(EnemiesSpawned < EnemiesLimit))
 	{
 		// Spawn new enemy and reset the counter
 		SpawnEnemy();
@@ -87,6 +87,8 @@ TSubclassOf<ABaseEnemy> AEnemyManager::GetRandomEnemyClass() const
 
 void AEnemyManager::SpawnEnemy()
 {
+	EnemiesSpawned++;
+
 	TSubclassOf<ABaseEnemy> EnemyType = GetRandomEnemyClass();
 	FVector EnemySpawnLocation = GetRandomLocationFromReferencePlane();
 	GetWorld()->SpawnActor(EnemyType, &EnemySpawnLocation);
