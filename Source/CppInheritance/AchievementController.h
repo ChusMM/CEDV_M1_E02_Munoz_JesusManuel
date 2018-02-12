@@ -18,17 +18,17 @@ public:
 	// Sets default values for this actor's properties
 	AAchievementController();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "KilledCount")
 	TSubclassOf<class UUserWidget> KilledCountTextWidget;
 	TWeakObjectPtr<class UUserWidget> pKilledCountTextWidget;
 	TWeakObjectPtr<class UTextBlock> pKilledCountText;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "FullHealth")
 	TSubclassOf<class UUserWidget> FullHealthTextWidget;
 	TWeakObjectPtr<class UUserWidget> pFullHealthTextWidget;
 	TWeakObjectPtr<class UTextBlock> pFullHealthText;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MissedShots")
 		TSubclassOf<class UUserWidget> MissedShotTextWidget;
 	TWeakObjectPtr<class UUserWidget> pMissedShotTextWidget;
 	TWeakObjectPtr<class UTextBlock> pMissedShotText;
