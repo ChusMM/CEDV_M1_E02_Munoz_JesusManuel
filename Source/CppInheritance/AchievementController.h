@@ -43,6 +43,8 @@ private:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	// Methods to update UX given stats as parameters
 	void setKilledCount(TMap<FString, int32> CounterKilledByType);
 	void setFullHealth(bool value);
 	void setMissingShot(bool value);

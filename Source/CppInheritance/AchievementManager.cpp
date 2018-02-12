@@ -18,7 +18,7 @@ AAchievementManager::AAchievementManager() :
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	// Initialize enemy killed counter by type
+	// Initialize enemy killed map counter by type
 	CounterKilledByType.Emplace(AJumpingShootingSlugEnemy::TYPE_KEY, 0);
 	CounterKilledByType.Emplace(AShootingSlugEnemy::TYPE_KEY, 0);
 	CounterKilledByType.Emplace(ASuperShootingSlugEnemy::TYPE_KEY, 0);
@@ -29,6 +29,7 @@ void AAchievementManager::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// Get a reference of achievement controller to control UX
 	FString AchievementCtl = FString(TEXT("AchievementController_1"));
 	for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
 	{

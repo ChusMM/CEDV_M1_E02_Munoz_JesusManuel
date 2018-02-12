@@ -50,6 +50,10 @@ private:
 
 	// Reference to achieveManager in order to increment kills by type 
 	TWeakObjectPtr<AActor> ReferenceAchievementMan;
+
+	// Each enemy has a static String in order to identify its type
+	// Type is defined on Each enemy implementation
+	// We assign this attribute on calling super in every specific constructor
 	FString Type;
 
 protected:

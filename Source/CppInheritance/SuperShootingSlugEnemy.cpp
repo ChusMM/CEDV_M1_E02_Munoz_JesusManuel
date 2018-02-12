@@ -21,6 +21,7 @@ void ASuperShootingSlugEnemy::RunBehaviour()
 		FVector SpawnLocation1 = GetActorLocation() + GetActorForwardVector() * 250.0f;
 		FVector SpawnLocation2 = GetActorLocation() + GetActorForwardVector() * 500.0f;
 		FVector SpawnLocation3 = GetActorLocation() + GetActorForwardVector() * 750.0f;
+		
 		FRotator SpawnRotation1 = GetActorRotation();
 		FRotator SpawnRotation2 = GetActorRotation().Add(0.0f, 15.0f, 0.0f);
 		FRotator SpawnRotation3 = GetActorRotation().Add(0.0f, -15.0f, 0.0f);

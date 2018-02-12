@@ -20,9 +20,17 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
+	// Container to store enemies killings by type
+	// This can be done thanks to every enemy type has a String type
 	TMap<FString, int32> CounterKilledByType;
+	
+	// To know if player has been hit at least once
 	bool FullHealth;
+	
+	// All types enemies count
 	int KilledEnemiesCount;
+	
+	// Shots fired, so we can know if there are missed shots
 	int ShotsFired;
 
 	// Reference to controler in order to control the widgets
@@ -38,12 +46,16 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Health")
 	void setFullHealth(bool value);
 
+	// Get current killings by type
 	int getKilledByType(FString type) const;
+
+	// Increment kills of an especific type
 	void incrementKillsByType(FString type);
 	
 	// We increment shots fired from FirstPersonBP
 	UFUNCTION(BlueprintCallable, Category = "Shots")
 	void incrementShotsFired();
 
+	// Called when game finish, so we show game stats
 	void finish() const;
 };
