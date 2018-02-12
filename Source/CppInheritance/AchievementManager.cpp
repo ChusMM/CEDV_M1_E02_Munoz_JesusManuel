@@ -55,15 +55,6 @@ bool AAchievementManager::isFullHealth() const
 void AAchievementManager::setFullHealth(bool value)
 {
 	this->FullHealth = value;
-	// Check validity and cast
-	if (AchievementControllerRef.IsValid() &&
-		AchievementControllerRef.Get()->IsA(AAchievementController::StaticClass()))
-	{
-		AAchievementController* AchievementControllerPtr =
-			Cast<AAchievementController>(AchievementControllerRef.Get());
-
-		AchievementControllerPtr->setFullHealth(value);
-	}
 }
 
 int AAchievementManager::getKilledByType(FString type) const
@@ -97,13 +88,26 @@ void AAchievementManager::incrementKillsByType(FString type)
 				Cast<AAchievementController>(AchievementControllerRef.Get());
 
 			AchievementControllerPtr->setKilledCount(CounterKilledByType);
-
-			AchievementControllerPtr->setMissingShot(this->ShotsFired > KilledEnemiesCount);
 		}
 	}
 	else
 	{
 		//throw new EnemyTypeNotFoundException();
+	}
+}
+
+void AAchievementManager::finish() const
+{
+	// Check validity and cast
+	if (AchievementControllerRef.IsValid() &&
+		AchievementControllerRef.Get()->IsA(AAchievementController::StaticClass()))
+	{
+		AAchievementController* AchievementControllerPtr =
+			Cast<AAchievementController>(AchievementControllerRef.Get());
+
+		// Show stats
+		AchievementControllerPtr->setMissingShot(this->ShotsFired > this->KilledEnemiesCount);
+		AchievementControllerPtr->setFullHealth(this->FullHealth);
 	}
 }
 

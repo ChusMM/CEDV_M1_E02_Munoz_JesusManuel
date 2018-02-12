@@ -32,6 +32,7 @@ public:
 	// Sets default values for this actor's properties
 	AEnemyManager();
 
+	// Enemies limit can be set up from editor
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EnemiesLimit")
 	int32 EnemiesLimit;
 
@@ -55,6 +56,9 @@ private:
 	FVector GetRandomLocationFromReferencePlane() const;
 	TSubclassOf<ABaseEnemy> GetRandomEnemyClass() const;
 	void SpawnEnemy();
+
+	// Reference to AchieveManager to notify finish game in order to show the stats
+	TWeakObjectPtr<AActor> ReferenceAchievementMan;
 
 public:
 	// Called every frame

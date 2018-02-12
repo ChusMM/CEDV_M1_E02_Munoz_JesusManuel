@@ -4,6 +4,7 @@
 #include "ShootingSlugEnemy.h"
 #include "JumpingShootingSlugEnemy.h"
 #include "SuperShootingSlugEnemy.h"
+#include "AchievementManager.h"
 
 
 // Example of member initialization list
@@ -26,7 +27,7 @@ void AEnemyManager::BeginPlay()
 	Super::BeginPlay();
 
 	FString EnemySpawnPlaneString = FString(TEXT("EnemySpawnPlane"));
-
+	FString AchievementMan = FString(TEXT("AchievementManager_1"));
 	// Get a reference to the invisible plane used to spawn enemies
 	for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
 	{
@@ -34,7 +35,11 @@ void AEnemyManager::BeginPlay()
 		{
 			// Conversion to smart pointer
 			ReferencePlane = *ActorItr;
-			break;
+		}
+		else if (AchievementMan.Equals(ActorItr->GetName()))
+		{
+			// Conversion to smart pointer 
+			ReferenceAchievementMan = *ActorItr;
 		}
 	}
 }
@@ -44,13 +49,27 @@ void AEnemyManager::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	AccumulatedDeltaTime += DeltaTime;
-	if ((AccumulatedDeltaTime >= EnemySpawnTimeSeconds)
-		&&
-		(EnemiesSpawned < EnemiesLimit))
+	if (AccumulatedDeltaTime >= EnemySpawnTimeSeconds)
 	{
-		// Spawn new enemy and reset the counter
-		SpawnEnemy();
-		AccumulatedDeltaTime = 0.0f;
+		if (EnemiesSpawned < EnemiesLimit)
+		{
+			// Spawn new enemy and reset the counter
+			SpawnEnemy();
+			AccumulatedDeltaTime = 0.0f;
+		}
+		else
+		{
+			// We have finished
+			// Check validity and cast
+			if (ReferenceAchievementMan.IsValid() &&
+				ReferenceAchievementMan.Get()->IsA(AAchievementManager::StaticClass()))
+			{
+				AAchievementManager* AchievementManagerPtr =
+					Cast<AAchievementManager>(ReferenceAchievementMan.Get());
+
+				AchievementManagerPtr->finish();
+			}
+		}
 	}
 }
 

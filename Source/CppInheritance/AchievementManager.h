@@ -25,6 +25,7 @@ private:
 	int KilledEnemiesCount;
 	int ShotsFired;
 
+	// Reference to controler in order to control the widgets
 	TWeakObjectPtr<AActor> AchievementControllerRef;
 
 public:	
@@ -33,12 +34,16 @@ public:
 	
 	bool isFullHealth() const;
 
+	// If we recieve shots, it must be callable from blueprint
 	UFUNCTION(BlueprintCallable, Category = "Health")
 	void setFullHealth(bool value);
 
 	int getKilledByType(FString type) const;
 	void incrementKillsByType(FString type);
 	
+	// We increment shots fired from FirstPersonBP
 	UFUNCTION(BlueprintCallable, Category = "Shots")
 	void incrementShotsFired();
+
+	void finish() const;
 };

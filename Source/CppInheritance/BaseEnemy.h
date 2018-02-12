@@ -48,6 +48,7 @@ private:
 	UPROPERTY()
 		TWeakObjectPtr<UParticleSystem> ExplosionParticleSystem;
 
+	// Reference to achieveManager in order to increment kills by type 
 	TWeakObjectPtr<AActor> ReferenceAchievementMan;
 	FString Type;
 
