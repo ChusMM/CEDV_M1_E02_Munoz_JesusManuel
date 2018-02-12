@@ -28,7 +28,9 @@ void AEnemyManager::BeginPlay()
 
 	FString EnemySpawnPlaneString = FString(TEXT("EnemySpawnPlane"));
 	FString AchievementMan = FString(TEXT("AchievementManager_1"));
+	
 	// Get a reference to the invisible plane used to spawn enemies
+	// We also want a reference to AchievementManager to notify finish
 	for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
 	{
 		if (EnemySpawnPlaneString.Equals(ActorItr->GetName()))

@@ -75,9 +75,12 @@ void AAchievementManager::incrementKillsByType(FString type)
 {
 	if (CounterKilledByType.Contains(type))
 	{
+		// Icrement killed enemies to know whether there are missed shots
 		this->KilledEnemiesCount ++;
+
 		// Despite its name returns value copy instead of ref
 		int32 count = CounterKilledByType.FindRef(type);
+		// Count killings by type in map
 		CounterKilledByType.Emplace(type, ++count);
 
 		// Check validity and cast
@@ -87,6 +90,7 @@ void AAchievementManager::incrementKillsByType(FString type)
 			AAchievementController* AchievementControllerPtr =
 				Cast<AAchievementController>(AchievementControllerRef.Get());
 
+			// Notify to widget
 			AchievementControllerPtr->setKilledCount(CounterKilledByType);
 		}
 	}
